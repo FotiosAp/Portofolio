@@ -86,7 +86,9 @@ export const translations = {
       formDesc: "Project Description",
       formDescPlaceholder: "Tell me about your current bottlenecks and what you want to build...",
       submit: "Send Message",
-      successMsg: "Thank you for your message! I will get back to you shortly."
+      successTitle: "Message Sent!",
+      successMsg: "Thank you for your message! I will get back to you shortly.",
+      sendAnother: "Send another message"
     },
     footer: {
       rights: "Fotis Apostolou. All rights reserved.",
@@ -180,7 +182,9 @@ export const translations = {
       formDesc: "Περιγραφή Έργου",
       formDescPlaceholder: "Πείτε μου για τις τρέχουσες δυσκολίες σας και τι θέλετε να κατασκευάσετε...",
       submit: "Αποστολή Μηνύματος",
-      successMsg: "Ευχαριστούμε για το μήνυμά σας! Θα επικοινωνήσουμε μαζί σας σύντομα."
+      successTitle: "Το μήνυμα εστάλη!",
+      successMsg: "Ευχαριστούμε για το μήνυμά σας! Θα επικοινωνήσουμε μαζί σας σύντομα.",
+      sendAnother: "Αποστολή νέου μηνύματος"
     },
     footer: {
       rights: "Φώτης Αποστόλου. Με την επιφύλαξη παντός δικαιώματος.",

@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
-import { Mail, Phone, MapPin, Send, Loader2 } from 'lucide-react';
+import { Mail, Phone, MapPin, Send, Loader2, CheckCircle, AlertCircle } from 'lucide-react';
 import { useLanguage } from '../context/LanguageContext';
 import './Contact.css';
 
 const Contact = () => {
   const { t } = useLanguage();
-  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [status, setStatus] = useState('idle'); // 'idle', 'submitting', 'success', 'error'
+  const [errorMessage, setErrorMessage] = useState('');
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -19,7 +20,8 @@ const Contact = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setIsSubmitting(true);
+    setStatus('submitting');
+    setErrorMessage('');
     
     try {
       const response = await fetch('/api/contact', {
@@ -31,16 +33,16 @@ const Contact = () => {
       });
 
       if (response.ok) {
-        alert(t('contact', 'successMsg'));
+        setStatus('success');
         setFormData({ name: '', email: '', businessType: '', projectDescription: '' });
       } else {
         const errorData = await response.json();
-        alert('Oops! Something went wrong: ' + (errorData.message || 'Unknown error.'));
+        setErrorMessage(errorData.message || 'Unknown error.');
+        setStatus('error');
       }
     } catch (error) {
-      alert('Network error. Please try again later.');
-    } finally {
-      setIsSubmitting(false);
+      setErrorMessage('Network error. Please try again later.');
+      setStatus('error');
     }
   };
 
@@ -83,75 +85,103 @@ const Contact = () => {
           </div>
           
           <div className="contact-form-container">
-            <form onSubmit={handleSubmit} className="contact-form">
-              <div className="form-group">
-                <label htmlFor="name" className="form-label">{t('contact', 'formName')}</label>
-                <input 
-                  type="text" 
-                  id="name" 
-                  name="name" 
-                  className="form-input" 
-                  placeholder={t('contact', 'formNamePlaceholder')}
-                  value={formData.name}
-                  onChange={handleChange}
-                  required
-                />
+            {status === 'success' ? (
+              <div className="success-message">
+                <div className="success-icon">
+                  <CheckCircle size={64} />
+                </div>
+                <h3>{t('contact', 'successTitle')}</h3>
+                <p>{t('contact', 'successMsg')}</p>
+                <button 
+                  className="btn btn-primary" 
+                  onClick={() => setStatus('idle')}
+                >
+                  {t('contact', 'sendAnother')}
+                </button>
               </div>
-              
-              <div className="form-group">
-                <label htmlFor="email" className="form-label">{t('contact', 'formEmail')}</label>
-                <input 
-                  type="email" 
-                  id="email" 
-                  name="email" 
-                  className="form-input" 
-                  placeholder={t('contact', 'formEmailPlaceholder')}
-                  value={formData.email}
-                  onChange={handleChange}
-                  required
-                />
-              </div>
-              
-              <div className="form-group">
-                <label htmlFor="businessType" className="form-label">{t('contact', 'formType')}</label>
-                <input 
-                  type="text" 
-                  id="businessType" 
-                  name="businessType" 
-                  className="form-input" 
-                  placeholder={t('contact', 'formTypePlaceholder')}
-                  value={formData.businessType}
-                  onChange={handleChange}
-                  required
-                />
-              </div>
-              
-              <div className="form-group">
-                <label htmlFor="projectDescription" className="form-label">{t('contact', 'formDesc')}</label>
-                <textarea 
-                  id="projectDescription" 
-                  name="projectDescription" 
-                  className="form-textarea" 
-                  placeholder={t('contact', 'formDescPlaceholder')}
-                  value={formData.projectDescription}
-                  onChange={handleChange}
-                  required
-                ></textarea>
-              </div>
-              
-              <button type="submit" className="btn btn-primary submit-btn" disabled={isSubmitting} style={{ opacity: isSubmitting ? 0.7 : 1 }}>
-                {isSubmitting ? (
-                  <>
-                    <Loader2 size={18} className="spin" style={{ marginRight: '8px', verticalAlign: 'middle' }} />
-                    Sending...
-                  </>
-                ) : (
-                  <>
-                    {t('contact', 'submit')} <Send size={18} style={{ marginLeft: '8px', verticalAlign: 'middle' }} />
-                  </>
+            ) : (
+              <form onSubmit={handleSubmit} className="contact-form">
+                {status === 'error' && (
+                  <div className="error-banner">
+                    <AlertCircle size={20} />
+                    <span>{errorMessage}</span>
+                  </div>
                 )}
-              </button>
-            </form>
+                
+                <div className="form-group">
+                  <label htmlFor="name" className="form-label">{t('contact', 'formName')}</label>
+                  <input 
+                    type="text" 
+                    id="name" 
+                    name="name" 
+                    className="form-input" 
+                    placeholder={t('contact', 'formNamePlaceholder')}
+                    value={formData.name}
+                    onChange={handleChange}
+                    required
+                  />
+                </div>
+                
+                <div className="form-group">
+                  <label htmlFor="email" className="form-label">{t('contact', 'formEmail')}</label>
+                  <input 
+                    type="email" 
+                    id="email" 
+                    name="email" 
+                    className="form-input" 
+                    placeholder={t('contact', 'formEmailPlaceholder')}
+                    value={formData.email}
+                    onChange={handleChange}
+                    required
+                  />
+                </div>
+                
+                <div className="form-group">
+                  <label htmlFor="businessType" className="form-label">{t('contact', 'formType')}</label>
+                  <input 
+                    type="text" 
+                    id="businessType" 
+                    name="businessType" 
+                    className="form-input" 
+                    placeholder={t('contact', 'formTypePlaceholder')}
+                    value={formData.businessType}
+                    onChange={handleChange}
+                    required
+                  />
+                </div>
+                
+                <div className="form-group">
+                  <label htmlFor="projectDescription" className="form-label">{t('contact', 'formDesc')}</label>
+                  <textarea 
+                    id="projectDescription" 
+                    name="projectDescription" 
+                    className="form-textarea" 
+                    placeholder={t('contact', 'formDescPlaceholder')}
+                    value={formData.projectDescription}
+                    onChange={handleChange}
+                    required
+                  ></textarea>
+                </div>
+                
+                <button 
+                  type="submit" 
+                  className="btn btn-primary submit-btn" 
+                  disabled={status === 'submitting'} 
+                  style={{ opacity: status === 'submitting' ? 0.7 : 1 }}
+                >
+                  {status === 'submitting' ? (
+                    <>
+                      <Loader2 size={18} className="spin" style={{ marginRight: '8px', verticalAlign: 'middle' }} />
+                      {t('contact', 'submit')}...
+                    </>
+                  ) : (
+                    <>
+                      {t('contact', 'submit')} <Send size={18} style={{ marginLeft: '8px', verticalAlign: 'middle' }} />
+                    </>
+                  )}
+                </button>
+              </form>
+            )}
           </div>
           
         </div>
