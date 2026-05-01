@@ -1,31 +1,34 @@
 import React from 'react';
 import { ArrowUpRight } from 'lucide-react';
+import { useLanguage } from '../context/LanguageContext';
 import './Portfolio.css';
 
 const Portfolio = () => {
+  const { t } = useLanguage();
+
   const projects = [
     {
-      title: "Coffee Shop E-commerce & Barista POS",
+      title: t('portfolio', 'p1Title'),
       tags: ["Full-Stack", "E-commerce", "React", "Node.js"],
-      description: "Flagship full-stack project. Features a customer-facing e-shop for online ordering and custom tablet software for baristas to manage incoming orders in real-time.",
+      description: t('portfolio', 'p1Desc'),
       image: "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?auto=format&fit=crop&q=80&w=800"
     },
     {
-      title: "Hair Salon Booking Platform",
+      title: t('portfolio', 'p2Title'),
       tags: ["Scheduling", "UI/UX", "Backend"],
-      description: "A 24/7 user booking flow allowing clients to schedule appointments. Includes a comprehensive admin panel for staff to manage availability and services.",
+      description: t('portfolio', 'p2Desc'),
       image: "https://images.unsplash.com/photo-1560066984-138dadb4c035?auto=format&fit=crop&q=80&w=800"
     },
     {
-      title: "Subscription Management System",
+      title: t('portfolio', 'p3Title'),
       tags: ["FinTech", "API Integration", "Database"],
-      description: "Robust backend logic designed for handling recurring payments, user tiers, and automated billing cycles securely and efficiently.",
+      description: t('portfolio', 'p3Desc'),
       image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&q=80&w=800"
     },
     {
-      title: "Targeted Landing Pages",
+      title: t('portfolio', 'p4Title'),
       tags: ["Conversion", "Frontend", "Analytics"],
-      description: "Conversion-focused landing pages designed specifically for lead capture, utilizing A/B testing principles and modern UI patterns.",
+      description: t('portfolio', 'p4Desc'),
       image: "https://images.unsplash.com/photo-1432888498266-38ffec3eaf0a?auto=format&fit=crop&q=80&w=800"
     }
   ];
@@ -34,8 +37,8 @@ const Portfolio = () => {
     <section id="portfolio" className="section bg-off-white">
       <div className="container">
         <div className="section-header">
-          <h2>Featured <span className="text-teal">Projects</span></h2>
-          <p className="subtitle" style={{color: 'var(--text-muted)', margin: 0}}>Demonstrating full-stack capability and business logic implementation.</p>
+          <h2>{t('portfolio', 'title')} <span className="text-teal">{t('portfolio', 'titleHighlight')}</span></h2>
+          <p className="subtitle" style={{color: 'var(--text-muted)', margin: 0}}>{t('portfolio', 'subtitle')}</p>
         </div>
         
         <div className="portfolio-grid">

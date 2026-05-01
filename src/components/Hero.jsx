@@ -1,26 +1,28 @@
 import React from 'react';
 import { ArrowRight } from 'lucide-react';
+import { useLanguage } from '../context/LanguageContext';
 import './Hero.css';
 
 const Hero = () => {
+  const { t } = useLanguage();
+
   return (
     <section id="home" className="hero">
       <div className="hero-overlay"></div>
       <div className="container hero-content">
         <h1>
-          Digital Solutions That Drive <br />
-          <span className="text-gold">Revenue</span> for Small Businesses
+          {t('hero', 'title1')} <br />
+          <span className="text-gold">{t('hero', 'titleHighlight')}</span> {t('hero', 'title2')}
         </h1>
         <p className="hero-subtitle">
-          Specialized in E-commerce, automated Booking Systems, and custom POS software. 
-          Built by a Digital Systems specialist from the University of Piraeus.
+          {t('hero', 'subtitle')}
         </p>
         <div className="hero-actions">
           <a href="#portfolio" className="btn btn-primary">
-            View My Work <ArrowRight size={18} style={{ marginLeft: '8px', verticalAlign: 'middle' }} />
+            {t('hero', 'viewWork')} <ArrowRight size={18} style={{ marginLeft: '8px', verticalAlign: 'middle' }} />
           </a>
           <a href="#contact" className="btn btn-outline">
-            Let's Discuss
+            {t('hero', 'letDiscuss')}
           </a>
         </div>
       </div>

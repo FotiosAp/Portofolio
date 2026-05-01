@@ -140,6 +140,15 @@ h3 { font-size: 1.5rem; margin-bottom: 1rem; }
   margin-bottom: 1.5rem;
 }
 
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.spin {
+  animation: spin 1s linear infinite;
+}
+
 .form-label {
   display: block;
   margin-bottom: 0.5rem;
