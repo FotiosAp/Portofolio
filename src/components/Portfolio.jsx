@@ -11,25 +11,29 @@ const Portfolio = () => {
       title: t('portfolio', 'p1Title'),
       tags: ["Full-Stack", "E-commerce", "React", "Node.js"],
       description: t('portfolio', 'p1Desc'),
-      image: "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?auto=format&fit=crop&q=80&w=800"
+      image: "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?auto=format&fit=crop&q=80&w=800",
+      link: "#"
     },
     {
       title: t('portfolio', 'p2Title'),
       tags: ["Scheduling", "UI/UX", "Backend"],
       description: t('portfolio', 'p2Desc'),
-      image: "https://images.unsplash.com/photo-1560066984-138dadb4c035?auto=format&fit=crop&q=80&w=800"
+      image: "https://images.unsplash.com/photo-1560066984-138dadb4c035?auto=format&fit=crop&q=80&w=800",
+      link: "https://barbershop-management-779.pages.dev/"
     },
     {
       title: t('portfolio', 'p3Title'),
       tags: ["FinTech", "API Integration", "Database"],
       description: t('portfolio', 'p3Desc'),
-      image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&q=80&w=800"
+      image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&q=80&w=800",
+      link: "#"
     },
     {
       title: t('portfolio', 'p4Title'),
       tags: ["Conversion", "Frontend", "Analytics"],
       description: t('portfolio', 'p4Desc'),
-      image: "https://images.unsplash.com/photo-1432888498266-38ffec3eaf0a?auto=format&fit=crop&q=80&w=800"
+      image: "https://images.unsplash.com/photo-1432888498266-38ffec3eaf0a?auto=format&fit=crop&q=80&w=800",
+      link: "#"
     }
   ];
 
@@ -47,7 +51,14 @@ const Portfolio = () => {
               <div className="portfolio-img-container">
                 <img src={project.image} alt={project.title} className="portfolio-img" />
                 <div className="portfolio-overlay">
-                  <a href="#" className="portfolio-link"><ArrowUpRight size={24} /></a>
+                  <a 
+                    href={project.link} 
+                    className="portfolio-link" 
+                    target={project.link !== "#" ? "_blank" : undefined}
+                    rel={project.link !== "#" ? "noopener noreferrer" : undefined}
+                  >
+                    <ArrowUpRight size={24} />
+                  </a>
                 </div>
               </div>
               <div className="portfolio-content">
