@@ -33,7 +33,7 @@ const Portfolio = () => {
       tags: ["Conversion", "Frontend", "Analytics"],
       description: t('portfolio', 'p4Desc'),
       image: "https://images.unsplash.com/photo-1432888498266-38ffec3eaf0a?auto=format&fit=crop&q=80&w=800",
-      link: "#"
+      link: "https://nail-shop.pages.dev/"
     }
   ];
 
@@ -51,15 +51,19 @@ const Portfolio = () => {
               <div className="portfolio-img-container">
                 <img src={project.image} alt={project.title} className="portfolio-img" />
                 <div className="portfolio-overlay">
+                  <div className="portfolio-link">
+                    <ArrowUpRight size={24} />
+                  </div>
+                </div>
+                {project.link !== "#" && (
                   <a 
                     href={project.link} 
-                    className="portfolio-link" 
-                    target={project.link !== "#" ? "_blank" : undefined}
-                    rel={project.link !== "#" ? "noopener noreferrer" : undefined}
-                  >
-                    <ArrowUpRight size={24} />
-                  </a>
-                </div>
+                    className="portfolio-main-link" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    aria-label={project.title}
+                  />
+                )}
               </div>
               <div className="portfolio-content">
                 <div className="portfolio-tags">
